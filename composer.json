@@ -1,0 +1,18 @@
+{
+    "name": "carlosgabrielsp/conest",
+    "description": "Sistema de controle de Estoque da UEST",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Carlos Gabriel S Pereira",
+            "email": "carlos.gabriel@cosanpa.pa.gov.br"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Cosanpa\\ConEst\\" : "src",
+            "App\\" : "app"
+        }
+    }
+}
