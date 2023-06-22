@@ -5,7 +5,7 @@ namespace Cosanpa\ConEst;
 use PDO;
 use ReflectionClass;
 
-class Model
+class Repository
 {
     protected $PDOconexao;
     protected $tabela;
@@ -18,7 +18,8 @@ class Model
         $this->PDOconexao = Conexao::getConexao();
     }
 
-    protected function getConexao(){
+    protected function getConexao()
+    {
         return $this->PDOconexao;
     }
 
@@ -27,7 +28,7 @@ class Model
         return $this->tabela;
     }
     
-    public function buscaTodos(string $ordem = 'ASC')
+    public function all(string $ordem = 'ASC')
     {
         $qry = "SELECT * FROM $this->tabela ORDER BY id $ordem";
         $stm = $this->PDOconexao->prepare($qry);
@@ -35,7 +36,7 @@ class Model
         return $stm->fetchAll(PDO::FETCH_CLASS, 'stdClass');
     }
 
-    public function buscaPorId(int $id)
+    public function byId(int $id)
     {
         $qry = 'SELECT * FROM ' . $this->tabela . " WHERE id = :id";
         $stm = $this->PDOconexao->prepare($qry);
@@ -45,7 +46,8 @@ class Model
         return $stm->fetch();
     }
 
-    public function ultimo(){
+    public function last()
+    {
         $qry = 'SELECT * FROM ' . $this->tabela . " ORDER BY id DESC LIMIT 1";
         $stm = $this->PDOconexao->prepare($qry);
         $stm->setFetchMode(PDO::FETCH_CLASS, 'stdClass');
@@ -53,7 +55,7 @@ class Model
         return $stm->fetch();
     }
 
-    public function salvar($array_dados)
+    public function save($array_dados)
     {
         $colunas = implode(",", array_keys($array_dados));
         $valores = implode("','", $array_dados);
@@ -70,7 +72,7 @@ class Model
         return $stm->execute();
     }
 
-    public function alterar($id, $array_dados)
+    public function update($id, $array_dados)
     {
         foreach($array_dados as $key => $value) {
             $array_aux[] = $key . " = '". trim($value) . "'";
@@ -82,4 +84,5 @@ class Model
         $stm->bindParam(':id', $id);
         return $stm->execute();
     }
+
 }

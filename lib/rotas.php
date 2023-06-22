@@ -14,4 +14,13 @@ $rotas['/erro404'] = [
     ]
 ];
 
+// PRODUTOS #################################################################################################
+$rotas['/produtos'] = [
+    'GET' => [
+        'controller' => App\controllers\ProdutoController::class,
+        'action' => 'index'
+    ]
+];
+
+
 return $rotas; 
